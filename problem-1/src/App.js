@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
 
 function App() {
@@ -8,7 +9,25 @@ function App() {
   const [editColor, setEditColor] = useState("#00ff00");
   const [editNoteText, setEditNoteText] = useState("");
   const [editingNote, setEditingNote] = useState(null);
+  const [quote, setQuote] = useState("");
 
+  // External functionality / API
+  useEffect(() => {
+    // Fetch a random quote when the component mounts
+    fetchRandomQuote();
+  }, []);
+
+  const fetchRandomQuote = async () => {
+    try {
+      const response = await axios.get("https://api.quotable.io/random");
+      console.log(response.data);
+      setQuote(response.data.content + "   - " + response.data.author);
+    } catch (error) {
+      console.error("Error fetching quote:", error);
+    }
+  };
+
+  // Add button
   const addNote = () => {
     if (noteText.trim() === "") {
       alert("Please enter a note.");
@@ -19,18 +38,22 @@ function App() {
       id: Date.now(),
       color,
       text: noteText,
+      quote: quote, // Include the quote in the note
     };
 
     setNotes([...notes, newNote]);
     setNoteText("");
+    fetchRandomQuote(); // Fetch a new quote for the next note
   };
 
+  // Edit Button
   const editNote = (note) => {
     setEditingNote(note);
     setEditNoteText(note.text);
     setEditColor(note.color);
   };
 
+  // Save Button
   const saveEdit = () => {
     if (!editingNote) return;
 
@@ -39,6 +62,7 @@ function App() {
       return;
     }
 
+    // Set notes to remain the same except the one being edited
     setNotes((prevNotes) =>
       prevNotes.map((note) =>
         note.id === editingNote.id
@@ -47,9 +71,10 @@ function App() {
       )
     );
 
-    setEditingNote(null);
+    setEditingNote(null); // Reset after saving
   };
 
+  // Delete button
   const deleteNote = (noteId) => {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
   };
@@ -89,6 +114,9 @@ function App() {
             style={{ backgroundColor: note.color }}
           >
             <p>{note.text}</p>
+            <p style={{ fontStyle: "italic", fontSize: "0.8em" }}>
+              {note.quote}
+            </p>
             <button
               className="delete-button"
               onClick={() => deleteNote(note.id)}
