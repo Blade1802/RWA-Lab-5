@@ -106,7 +106,7 @@ In this example, `numbers` is a functor (an array), and the `map` function is us
 
 #### Disadvantage:
 
-**Unidirectional:** Promises have unidirectional behavior, meaning that a promise can be resolved or rejected only once. If you need to represent multiple values over time, promises might not be the most suitable mechanism. It can break badly when logical ordering of responses is required.
+- **Unidirectional:** Promises have unidirectional behavior, meaning that a promise can be resolved or rejected only once. If you need to represent multiple values over time, promises might not be the most suitable mechanism. It can break badly when logical ordering of responses is required.
 
 ### Streams
 
@@ -117,3 +117,43 @@ In this example, `numbers` is a functor (an array), and the `map` function is us
 #### Disadvantage:
 
 - **Learning Curve:** Streams can have a steeper learning curve compared to callbacks and promises. Understanding concepts like backpressure, readable and writable streams, and the various stream-related events can be challenging for newcomers.
+
+## 4. With the aid of a diagram and example code, describe the Cascading Style Sheets (CSS) Box Model and show how it can be used to space DOM elements
+
+The CSS Box Model is a fundamental concept that describes the layout of HTML elements on a web page. It consists of content, padding, border, and margin, forming a box around every element.
+
+### Components of the Box Model:
+
+1. **Content:**
+
+   - The actual content of the box, such as text, images, or other media.
+
+2. **Padding:**
+
+   - The space between the content and the border. It adds internal space within the box.
+
+3. **Border:**
+
+   - A border surrounding the padding. It separates the padding from the margin and provides a visual boundary.
+
+4. **Margin:**
+   - The space outside the border. It defines the clearance between the element's border and adjacent elements.
+
+## Diagram:
+
++---------------------------------------------+
+|             Margin (outermost)              |
+|  +---------------------------------------+  |
+|  |                Border                 |  |
+|  |  +---------------------------------+  |  |
+|  |  |            Padding              |  |  |
+|  |  |  +-------------------------+    |  |  |
+|  |  |  |         Content         |    |  |  |
+|  |  |  |                         |    |  |  |
+|  |  |  +-------------------------+    |  |  |
+|  |  |                                 |  |  |
+|  |  +---------------------------------+  |  |
+|  |                                       |  |
+|  +---------------------------------------+  |
+|                                             |
++---------------------------------------------+
