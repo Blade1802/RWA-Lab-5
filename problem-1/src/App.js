@@ -10,6 +10,8 @@ function App() {
   const [editNoteText, setEditNoteText] = useState("");
   const [editingNote, setEditingNote] = useState(null);
   const [quote, setQuote] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedColorFilter, setSelectedColorFilter] = useState("All");
 
   // External functionality / API
   useEffect(() => {
@@ -38,7 +40,7 @@ function App() {
       id: Date.now(),
       color,
       text: noteText,
-      quote: quote, // Include the quote in the note
+      quote, // Include the quote in the note
     };
 
     setNotes([...notes, newNote]);
@@ -79,6 +81,27 @@ function App() {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
   };
 
+  const filterNotes = () => {
+    let filteredNotes = notes;
+
+    if (selectedColorFilter !== "All") {
+      filteredNotes = filteredNotes.filter(
+        (note) => note.color === selectedColorFilter
+      );
+    }
+
+    if (searchTerm.trim() !== "") {
+      const lowercaseSearchTerm = searchTerm.toLowerCase();
+      filteredNotes = filteredNotes.filter((note) =>
+        note.text.toLowerCase().includes(lowercaseSearchTerm)
+      );
+    }
+
+    return filteredNotes;
+  };
+
+  const filteredNotes = filterNotes();
+
   return (
     <div className="container">
       <h1>Note-taking App</h1>
@@ -106,8 +129,30 @@ function App() {
         ></textarea>
         <button onClick={addNote}>Add</button>
       </div>
+
+      <div className="search-filter">
+        <input
+          type="text"
+          placeholder="Search notes..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          value={selectedColorFilter}
+          onChange={(e) => setSelectedColorFilter(e.target.value)}
+        >
+          <option value="All">All Colors</option>
+          <option value="#ff0000">Red</option>
+          <option value="#00ff00">Green</option>
+          <option value="#0000ff">Blue</option>
+          <option value="#007bff">Sky Blue</option>
+          <option value="#ffff00">Yellow</option>
+          <option value="#ffc0cb">Pink</option>
+        </select>
+      </div>
+
       <div className="notes">
-        {notes.map((note) => (
+        {filteredNotes.map((note) => (
           <div
             key={note.id}
             className="note"

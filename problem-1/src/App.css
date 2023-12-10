@@ -23,6 +23,10 @@ h1 {
   margin-bottom: 20px;
 }
 
+.search-filter {
+  text-align: center;
+}
+
 #color-picker,
 #edit-color-picker {
   width: 57px;
