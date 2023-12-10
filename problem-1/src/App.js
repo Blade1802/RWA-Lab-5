@@ -83,6 +83,7 @@ function App() {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
   };
 
+  // Extended functions
   const filterAndSortNotes = () => {
     let filteredNotes = notes;
 
