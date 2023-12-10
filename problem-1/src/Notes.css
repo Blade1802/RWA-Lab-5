@@ -1,0 +1,35 @@
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.note {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ff5733; /* Default color */
+  position: relative;
+  padding-right: 35px; /* Create space for buttons on the right */
+}
+
+.note .delete-button,
+.note .edit-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  color: #ff3333;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1; /* Ensure buttons are above the note content */
+}
+
+.note .edit-button {
+  right: 60px; /* Adjust the position of the edit button */
+}

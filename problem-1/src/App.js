@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
+import Notes from "./Notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -153,29 +154,11 @@ function App() {
         </select>
       </div>
 
-      <div className="notes">
-        {filteredNotes.map((note) => (
-          <div
-            key={note.id}
-            className="note"
-            style={{ backgroundColor: note.color }}
-          >
-            <p>{note.text}</p>
-            <p style={{ fontStyle: "italic", fontSize: "0.8em" }}>
-              {note.quote}
-            </p>
-            <button
-              className="delete-button"
-              onClick={() => deleteNote(note.id)}
-            >
-              Delete
-            </button>
-            <button className="edit-button" onClick={() => editNote(note)}>
-              Edit
-            </button>
-          </div>
-        ))}
-      </div>
+      <Notes
+        filteredNotes={filteredNotes}
+        deleteNote={deleteNote}
+        editNote={editNote}
+      />
 
       {editingNote && (
         <div id="editModal" className="modal">
