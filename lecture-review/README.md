@@ -124,27 +124,21 @@ The CSS Box Model is a fundamental concept that describes the layout of HTML ele
 
 ### Components of the Box Model:
 
-1. **Content:**
+1. **Content:** The actual content of the box, such as text, images, or other media.
 
-   - The actual content of the box, such as text, images, or other media.
+2. **Padding:** The space between the content and the border. It adds internal space within the box.
 
-2. **Padding:**
+3. **Border:** A border surrounding the padding. It separates the padding from the margin and provides a visual boundary.
 
-   - The space between the content and the border. It adds internal space within the box.
+4. **Margin:** The space outside the border. It defines the clearance between the element's border and adjacent elements.
 
-3. **Border:**
+### Diagram:
 
-   - A border surrounding the padding. It separates the padding from the margin and provides a visual boundary.
-
-4. **Margin:**
-   - The space outside the border. It defines the clearance between the element's border and adjacent elements.
-
-## Diagram:
-
+```
 +---------------------------------------------+
 |             Margin (outermost)              |
 |  +---------------------------------------+  |
-|  |                Border                 |  |
+|  |               Border                  |  |
 |  |  +---------------------------------+  |  |
 |  |  |            Padding              |  |  |
 |  |  |  +-------------------------+    |  |  |
@@ -157,3 +151,43 @@ The CSS Box Model is a fundamental concept that describes the layout of HTML ele
 |  +---------------------------------------+  |
 |                                             |
 +---------------------------------------------+
+```
+
+### Example:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Box Model Example</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 100px;
+        border: 2px solid #333;
+        padding: 20px;
+        margin: 10px;
+      }
+
+      .box2 {
+        width: 150px;
+        height: 75px;
+        border: 1px solid #555;
+        padding: 10px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <p>Box 1</p>
+    </div>
+
+    <div class="box2">
+      <p>Box 2</p>
+    </div>
+  </body>
+</html>
+```
