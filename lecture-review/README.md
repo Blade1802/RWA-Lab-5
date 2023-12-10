@@ -182,12 +182,14 @@ The CSS Box Model is a fundamental concept that describes the layout of HTML ele
   </head>
   <body>
     <div class="box">
-      <p>Box 1</p>
+      <p>This is a box with content, padding, border, and margin.</p>
     </div>
 
     <div class="box2">
-      <p>Box 2</p>
+      <p>Another box with different dimensions and styling.</p>
     </div>
   </body>
 </html>
 ```
+
+![BoxModel Output](./BoxModel.png)
