@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import Notes from "./Notes";
+import EditModal from "./EditModel";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -13,6 +14,7 @@ function App() {
   const [quote, setQuote] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedColorFilter, setSelectedColorFilter] = useState("All");
+  const [selectedSortOption, setSelectedSortOption] = useState("Date");
 
   // External functionality / API
   useEffect(() => {
@@ -23,7 +25,6 @@ function App() {
   const fetchRandomQuote = async () => {
     try {
       const response = await axios.get("https://api.quotable.io/random");
-      console.log(response.data);
       setQuote(response.data.content + "   - " + response.data.author);
     } catch (error) {
       console.error("Error fetching quote:", error);
@@ -82,9 +83,10 @@ function App() {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
   };
 
-  const filterNotes = () => {
+  const filterAndSortNotes = () => {
     let filteredNotes = notes;
 
+    // Filter notes based on color and search term
     if (selectedColorFilter !== "All") {
       filteredNotes = filteredNotes.filter(
         (note) => note.color === selectedColorFilter
@@ -98,10 +100,23 @@ function App() {
       );
     }
 
+    // Sort notes based on the selected sort option
+    switch (selectedSortOption) {
+      case "Date":
+        filteredNotes.sort((a, b) => b.id - a.id);
+        break;
+      case "Color":
+        filteredNotes.sort((a, b) => a.color.localeCompare(b.color));
+        break;
+      default:
+        filteredNotes.sort((a, b) => a.text.localeCompare(b.text));
+        break;
+    }
+
     return filteredNotes;
   };
 
-  const filteredNotes = filterNotes();
+  const filteredNotes = filterAndSortNotes();
 
   return (
     <div className="container">
@@ -135,13 +150,12 @@ function App() {
         <input
           type="text"
           placeholder="Search notes..."
-          style={{ marginRight: "5px" }}
+          style={{ marginRight: "10px" }}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
           value={selectedColorFilter}
-          style={{ marginLeft: "5px" }}
           onChange={(e) => setSelectedColorFilter(e.target.value)}
         >
           <option value="All">All Colors</option>
@@ -152,36 +166,32 @@ function App() {
           <option value="#ffff00">Yellow</option>
           <option value="#ffc0cb">Pink</option>
         </select>
+        <select
+          value={selectedSortOption}
+          style={{ marginLeft: "10px" }}
+          onChange={(e) => setSelectedSortOption(e.target.value)}
+        >
+          <option value="Date">Sort by Date</option>
+          <option value="Text">Sort by Text</option>
+          <option value="Color">Sort by Color</option>
+        </select>
       </div>
 
       <Notes
         filteredNotes={filteredNotes}
-        deleteNote={deleteNote}
         editNote={editNote}
+        deleteNote={deleteNote}
       />
 
       {editingNote && (
-        <div id="editModal" className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setEditingNote(null)}>
-              &times;
-            </span>
-            <h2>Edit Note</h2>
-            <input
-              type="color"
-              id="edit-color-picker"
-              list="presetColors"
-              value={editColor}
-              onChange={(e) => setEditColor(e.target.value)}
-            />
-            <textarea
-              id="edit-note-text"
-              value={editNoteText}
-              onChange={(e) => setEditNoteText(e.target.value)}
-            ></textarea>
-            <button onClick={saveEdit}>Save</button>
-          </div>
-        </div>
+        <EditModal
+          editColor={editColor}
+          editNoteText={editNoteText}
+          setEditColor={setEditColor}
+          setEditingNote={setEditingNote}
+          setEditNoteText={setEditNoteText}
+          saveEdit={saveEdit}
+        />
       )}
     </div>
   );
