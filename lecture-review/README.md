@@ -64,3 +64,56 @@ export default FunctionalComponent;
 ```
 
 In this functional component example, the useState hook is used to initialize and update the state. Clicking the "Increment" button updates the state, triggering a re-render of the component.
+
+## 2. In functional programming, what does the term functor mean? Can you give an example in JavaScript?
+
+In functional programming, a functor is an object or data structure that implements the `map` function, providing a way to apply a function to the values inside it while preserving its structure. Functors allow you to perform operations on values within a context (such as a container or data structure) without changing the structure itself.
+
+In JavaScript, arrays are a common example of functors. The map function is available on arrays and can be used to apply a function to each element of the array, creating a new array with the results.
+
+```
+// Define a functor (array)
+const numbers = [1, 2, 3, 4, 5];
+
+// Define a function to be applied to each element
+const square = (x) => x * x;
+
+// Use the map function to apply the function to each element of the array
+const squaredNumbers = numbers.map(square);
+
+console.log(squaredNumbers); // Output: [1, 4, 9, 16, 25]
+```
+
+In this example, `numbers` is a functor (an array), and the `map` function is used to apply the `square` function to each element of the array. The result is a new array `squaredNumbers` with the squared values.
+
+## 3. We have looked at three kinds of asynchronous programming mechanisms, namely callbacks, promises and streams. Mention one advantage and one disadvantage of each type.
+
+### Callbacks
+
+#### Advantage:
+
+- **Simple and Widely Supported:** Callbacks are a fundamental and widely supported asynchronous mechanism in JavaScript. They are easy to understand and use, making them accessible for developers, especially in scenarios with simpler asynchronous operations.
+
+#### Disadvantage:
+
+- **Callback Hell (Callback Pyramids):** One major disadvantage is the potential for callback hell, where multiple nested callbacks lead to code that is hard to read and maintain. This issue is also known as the "pyramid of doom" or "callback hell."
+
+### Promises
+
+#### Advantage:
+
+- **Chaining and Error Handling:** Promises provide a cleaner way to handle asynchronous operations and help avoid callback hell by enabling method chaining. They also have built-in error handling through the `.catch` method, making it easier to manage errors in asynchronous code.
+
+#### Disadvantage:
+
+**Unidirectional:** Promises have unidirectional behavior, meaning that a promise can be resolved or rejected only once. If you need to represent multiple values over time, promises might not be the most suitable mechanism. It can break badly when logical ordering of responses is required.
+
+### Streams
+
+#### Advantage:
+
+- **Efficient Handling of Large Data Sets:** Streams are particularly useful for handling large data sets or streams of data in a memory-efficient way. They allow you to process data in chunks, which can be more efficient than loading an entire data set into memory.
+
+#### Disadvantage:
+
+- **Learning Curve:** Streams can have a steeper learning curve compared to callbacks and promises. Understanding concepts like backpressure, readable and writable streams, and the various stream-related events can be challenging for newcomers.
