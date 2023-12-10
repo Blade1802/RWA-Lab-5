@@ -134,11 +134,13 @@ function App() {
         <input
           type="text"
           placeholder="Search notes..."
+          style={{ marginRight: "5px" }}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <select
           value={selectedColorFilter}
+          style={{ marginLeft: "5px" }}
           onChange={(e) => setSelectedColorFilter(e.target.value)}
         >
           <option value="All">All Colors</option>
